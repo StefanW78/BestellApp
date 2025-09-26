@@ -1,0 +1,21 @@
+body {
+    background-color: rgba(240, 145, 53, 0.8) ;
+    margin: 0;
+    padding: 0;
+}
+
+.logoNormal {
+  height: 80px;
+}
+
+.max-width-all {
+  max-width: 1200px;
+  margin: 0 auto;
+  
+}
+
+.header-div {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+}
