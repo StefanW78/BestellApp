@@ -1,5 +1,10 @@
+:root {
+  --primary-color: rgba(240, 145, 53, 0.8);
+  --secondary-color: rgb(9, 24, 32, 1);
+}
+
 body {
-  background-color: rgba(240, 145, 53, 0.8);
+  background-color: var(--primary-color);
   margin: 0;
   padding: 0;
 }
@@ -36,4 +41,24 @@ body {
   width: 18px;
   border-radius: 2px;
   background-color: white;
+}
+
+.mainContainer {
+  border: 1px solid black;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+}
+
+.menus {
+  border: 1px solid black;
+  height: 100vh;
+  flex-grow: 1;
+}
+
+.basket {
+  border: 1px solid black;
+  height: 100vh;
+  width: 30%;
+  
 }
