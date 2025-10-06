@@ -1,19 +1,29 @@
 :root {
   --primary-color: rgba(240, 145, 53, 0.8);
-  --secondary-color: rgb(9, 24, 32, 1);
+  --secondary-color: #fdfdfb;
+}
+
+.primary{
+  color: var(--primary-color);
 }
 
 body {
   background-color: var(--primary-color);
+  font-family: "Comic_Relief", sans-serif;
+  margin: 0;
+}
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .logoNormal {
   height: 80px;
+  padding: 10px 0;
 }
 
-.max-width-all {
+.contentLimiter {
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -21,14 +31,13 @@ body {
 .header-div {
   display: flex;
   justify-content: space-between;
-  border: 1px solid black;
 }
 
 .burger-menu-div {
-  height: 20px;
-  width: 20px;
+  height: 32px;
+  width: 32px;
   margin: auto 40px auto auto;
-  border: 1px solid black;
+  
   aspect-ratio: 1 / 1;
   display: flex;
   flex-direction: column;
@@ -43,22 +52,255 @@ body {
   background-color: white;
 }
 
+.burgerstripes:hover {
+  filter:drop-shadow(0 0 4px blue)
+}
+
 .mainContainer {
-  border: 1px solid black;
-  height: 100vh;
+  height: 100%;
   background-color: white;
   display: flex;
+  flex-direction: row;
+}
+.purchaseBasket {
+  height: auto;
+  width: 250px;
+  box-shadow: -1px 0px 1px rgba(3, 7, 18, 0.02),
+    -3px 0px 4px rgba(3, 7, 18, 0.03), -7px 1px 9px rgba(3, 7, 18, 0.05),
+    -13px 2px 15px rgba(3, 7, 18, 0.06), -20px 3px 24px rgba(3, 7, 18, 0.08); /* shadow-generator: smoothshadow.com */
 }
 
 .menus {
-  border: 1px solid black;
-  height: 100vh;
+  height: 100%;
   flex-grow: 1;
+  background-color: rgb(253, 253, 251);
+  display: flex;
+  flex-direction: column;
 }
 
-.basket {
+.picAndMenuProposal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 300px;
+}
+
+.firstMainPicture {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  object-position: 100% 30%;
+}
+.littleBurgerPicture {
+  height: 64px;
+  width: 64px;
   border: 1px solid black;
-  height: 100vh;
-  width: 30%;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background-color: #fdfdfb;
+}
+
+.menuProposal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding-left: 12px;
+  gap: 16px;
+  transform: translateY(-80%);
+}
+
+.navigationPoints {
+  height: 64px;
+  width: 100%;
+  padding-left: 12px;
+  background-color: rgb(222, 222, 222);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navigationArrow {
+  color: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  transition: color 0.3s ease;
+}
+
+.navigationArrow:hover {
+  color: var(--secondary-color);
+}
+
+.mainCoursesPic {
+  height: 150px;
+  width: 100%;
+  padding: 12px;
+  object-fit: cover;
+  object-position: 100% 30%;
   
+}
+
+a {
+  text-decoration: none;
+  color: gray;
+  font-style: bold;
+}
+.headlineMainCourses {
+  padding-left: 32px;
+  padding-bottom: 12px;
+}
+
+.menuItem {
+  border: 1px solid rgb(239, 239, 239);
+  padding-left: 20px;
+  margin: 12px;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menuItemDescription {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.sideDishesPic {
+  height: 150px;
+  width: 100%;
+  padding: 12px;
+  object-fit: cover;
+  object-position: 50% 60%;
+}
+
+.sideDishesItem {
+  border: 1px solid rgb(239, 239, 239);
+  padding-left: 20px;
+  margin: 12px;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.plusIcon {
+  color: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  transition: color 0.3s ease;
+}
+
+.plusIcon:hover {
+  color: yellow;
+  background-color: rgb(194, 194, 194);
+  filter: drop-shadow(0 0 4px blue);
+  border-radius: 50%;
+}
+
+.plusIconBasket {
+  color: var(--primary-color);
+  width: 24px;
+  height: 24px;
+  transition: color 0.3s ease;
+}
+
+.plusIconBasket:hover {
+  color: yellow;
+  background-color: rgb(194, 194, 194);
+  filter: drop-shadow(0 0 4px blue);
+  border-radius: 50%;
+}
+
+.minusIcon {
+  color: var(--primary-color);
+  width: 24px;
+  height: 24px;
+  transition: color 0.3s ease;
+}
+
+.minusIcon:hover {
+  color: yellow;
+  background-color: rgb(194, 194, 194);
+  filter: drop-shadow(0 0 4px blue);
+  border-radius: 50%;
+}
+
+.headlineBasket {
+  text-align: center;
+  padding: 8px;
+}
+
+.basketIcon {
+  color: var(--primary-color);
+  width: 24px;
+  height: 24px;
+  transition: color 0.3s ease;
+}
+
+.basketIcon:hover {
+  color: yellow;
+  background-color: rgb(194, 194, 194);
+  filter: drop-shadow(0 0 4px blue);
+  border-radius: 50%;
+}
+
+.purchaseBasketItem {
+  border-bottom: 1px solid rgb(208, 208, 208);
+  border-top: 1px solid rgb(208, 208, 208);
+}
+
+.purchaseItemHeadline {
+  text-align: start;
+  padding: 8px;
+  font-size: large;
+  
+}
+
+.orderItemsAmount {
+  display: flex;
+  padding: 4px;
+  justify-content: space-evenly;
+}
+
+.calulations {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px;
+}
+
+.colorGray {
+  color: grey;
+}
+
+.fontBold {
+  font-weight: bold;
+}
+
+.footerFirst {
+  height: 250px;
+  width: auto;
+  text-align: center;
+}
+
+@media (max-width: 712px) {
+  .footerSecond {
+    background-color: blue;
+    text-align: center;
+    color: #fdfdfb;
+
+  }
+  .footerFirst {
+  display: none;
+}
+
+.purchaseBasket {
+  display: none;
+}
+
+.basketButton {
+  background-color: blue;
+  color: #fdfdfb;
+  width: 100%;
+  border-style: none;
+}
+
 }
