@@ -109,6 +109,44 @@ function getMainDishesTemplate(index) {
               </div>`;
 }
 
+
+
+function addItemToBasket(button) {
+  // 1. reading attribute
+  const index = button.getAttribute('data-info');
+
+  // 2. pick up Element from array with an copy of myDishes[index]
+  const selectedItem = { ...myDishes[index] };
+
+  
+    // 3. check if is in the array
+ let itemExists = false;
+
+  myMainBasket.forEach((basketItem, basketIndex) => {
+    if (basketItem.name === selectedItem.name) {
+      // Item exists, raise quantity
+      myMainBasket[basketIndex].basketAmount += 1;
+      myMainBasket[basketIndex].price =
+        selectedItem.price * myMainBasket[basketIndex].basketAmount;
+      itemExists = true;
+    }
+  });
+
+  // Item not in, push in
+  if (!itemExists) {
+    selectedItem.basketAmount = 1;
+    myMainBasket.push(selectedItem);
+  }
+
+
+
+  // 4. give it in the basket array
+  
+  saveBasket();
+  showBasket();
+  
+}
+
 function loadBasket() {
   const saved = localStorage.getItem('myMainBasket');
   if (saved) {
@@ -121,44 +159,6 @@ function saveBasket() {
   localStorage.setItem('myMainBasket', JSON.stringify(myMainBasket));
 }
 
-
-
-function addItemToBasket(button) {
-  // 1. reading attribute
-  const index = button.getAttribute('data-info');
-
-  // 2. pick up Element from array
-  const selectedItem = myDishes[index];
-        selectedItem.basketAmount += 1;
-        selectedItem.price = myDishes[index].price * selectedItem.basketAmount;
-        console.log(selectedItem);
-        console.log();
-        
-    // 3. check if is in the array
-  myMainBasket.forEach(function(myMainBasketItem, index) {
-    
-    console.log(myMainBasketItem.name);
-    console.log(selectedItem.name);
-    if(myMainBasketItem.name === selectedItem.name) {
-      myMainBasket[index].basketAmount +=1;
-      myMainBasket[index].price = myMainBasket[index].price * myMainBasket[index].basketAmount;
-    }
-    else {
-      selectedItem.basketAmount += 1;
-      myMainBasket.push(selectedItem);
-    }
-    
-   
-});      
-
-
-
-  // 4. give it in the basket array
-  myMainBasket.push(selectedItem);
-  saveBasket();
-  showBasket();
-  
-}
 
 function showSideDishes() {
   let contentRef = document.getElementById("sideDishesContainer");
@@ -200,27 +200,27 @@ function addSideDishesItemToBasket(button) {
   const index = button.getAttribute('data-info');
 
   // 2. pick up Element from array
-  const selectedItem = sideDishes[index];
-        selectedItem.basketAmount += 1;
+  const selectedItem = { ...sideDishes[index] };
+
 
   // 3. check if is in the array
-  myMainBasket.forEach(function(myMainBasketItem, index) {
-    console.log("index: " + index);
-    
-    console.log(myMainBasketItem.name);
-    console.log(selectedItem.name);
-    if(myMainBasketItem.name === selectedItem.name) {
-      myMainBasket[index].basketAmount +=1;
-      myMainBasket[index].price = myMainBasket[index].price * myMainBasket[index].basketAmount;
-    }
-    else {
-      selectedItem.basketAmount += 1;
-      myMainBasket.push(selectedItem);
-    }
-    
-   
-});
+  let itemExists = false;
 
+  myMainBasket.forEach((basketItem, basketIndex) => {
+    if (basketItem.name === selectedItem.name) {
+      // Item exists, raise Quantity
+      myMainBasket[basketIndex].basketAmount += 1;
+      myMainBasket[basketIndex].price =
+        selectedItem.price * myMainBasket[basketIndex].basketAmount;
+      itemExists = true;
+    }
+  });
+
+  // If Item does not exists
+  if (!itemExists) {
+    selectedItem.basketAmount = 1;
+    myMainBasket.push(selectedItem);
+  }
 
   // 4. give it in the basket array
   saveBasket();
@@ -245,6 +245,7 @@ function getpurchaseBasketTotalTemplate(index) {
               </div>
               <div class="orderItemsAmount">
                 <svg
+                  onclick="reduceBasket(this)"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -259,6 +260,7 @@ function getpurchaseBasketTotalTemplate(index) {
                 </svg>
                 <div class="amount colorGray">${myMainBasket[index].basketAmount}x</div>
                 <svg
+                  onclick="raiseBasket(this)"
                   viewBox="0 0 24 24"
                   fill="transparent"
                   stroke="currentColor"
@@ -293,6 +295,33 @@ function getpurchaseBasketTotalTemplate(index) {
             </div>`;
 }
 
+function raiseBasket(button) {
+  const index = button.getAttribute('data-info');
+  const singlePrice = myMainBasket[index].price / myMainBasket[index].basketAmount;
+  myMainBasket[index].basketAmount += 1;
+  myMainBasket[index].price = singlePrice * myMainBasket[index].basketAmount;
+  //  show it
+  saveBasket();
+  showBasket();
+}
+
+function reduceBasket(button) {
+  const index = button.getAttribute('data-info');
+  const singlePrice = myMainBasket[index].price / myMainBasket[index].basketAmount;
+  myMainBasket[index].basketAmount -= 1;
+  if (myMainBasket[index].basketAmount != 0){
+    myMainBasket[index].price = singlePrice * myMainBasket[index].basketAmount;
+  //  show it
+  saveBasket();
+  showBasket();
+  }
+  else {
+    removeItem(button);
+  }
+
+  
+  
+}
 
 // loading localStorage 
 function loadBasket() {
@@ -308,7 +337,10 @@ function removeItem(button) {
   myMainBasket.splice(index, 1);
   saveBasket();   // speichern
   showBasket(); // neu anzeigen
+
 }
+
+
 
 
 function showDialog() {
