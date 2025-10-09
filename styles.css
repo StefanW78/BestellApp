@@ -58,13 +58,17 @@ body {
 }
 
 .mainContainer {
-  height: 100%;
+  height: auto;
+  overflow: visible;
   background-color: white;
   display: flex;
   flex-direction: row;
 }
 .purchaseBasket {
-  height: auto;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: fit-content;
   width: 250px;
   box-shadow: -1px 0px 1px rgba(3, 7, 18, 0.02),
     -3px 0px 4px rgba(3, 7, 18, 0.03), -7px 1px 9px rgba(3, 7, 18, 0.05),
@@ -72,7 +76,7 @@ body {
 }
 
 .menus {
-  height: 100%;
+  
   flex-grow: 1;
   background-color: rgb(253, 253, 251);
   display: flex;

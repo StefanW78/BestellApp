@@ -1,8 +1,9 @@
 let myMainBasket = [];
 let dishesContainer = document.getElementsByClassName("orderButtonDishes");
 let count = 0;
-let totalItemPrice = 0;
-
+let totalItemPrice = 0.00;
+let deliveryCosts = 5.00;
+let displayDeliveryCosts = deliveryCosts.toFixed(2).replace('.',',') + "€";
 
 let myDishes = [ 
   {
@@ -229,6 +230,11 @@ function addSideDishesItemToBasket(button) {
 
 
 function showBasket() {
+  if (myMainBasket.length != 0) {
+    showTotalSums(myMainBasket);
+    
+  }
+
   let contentRef = document.getElementById("purchaseBasketTotal");
   contentRef.innerHTML = ""; /* clear Field */
 
@@ -314,12 +320,12 @@ function reduceBasket(button) {
   //  show it
   saveBasket();
   showBasket();
+  showTotalSums();
   }
   else {
     removeItem(button);
   }
 
-  
   
 }
 
@@ -335,11 +341,65 @@ function loadBasket() {
 function removeItem(button) {
   const index = button.getAttribute('data-info');
   myMainBasket.splice(index, 1);
-  saveBasket();   // speichern
-  showBasket(); // neu anzeigen
+  saveBasket();  
+  showBasket();
+  showTotalSums();
 
 }
 
+function calculateCostofBasket(myMainBasket) {
+   totalItemPrice = 0;
+  myMainBasket.forEach(function (object){
+    totalItemPrice += Number(object.price);
+  })
+  
+let displayTotalItemPrice = totalItemPrice.toFixed(2).replace('.', ',') + '€';
+  return displayTotalItemPrice;
+  
+}
+
+function totalCosts(totalItemPrice, deliveryCosts) {
+  const totalCostsNumber = totalItemPrice + deliveryCosts;
+  let displayTotalCostNumber = totalCostsNumber.toFixed(2).replace('.', ',') + '€';
+  return displayTotalCostNumber;
+}
+
+function showTotalSums() {
+  let contentRef = document.getElementById("amountBasketContainer");
+  if (myMainBasket.length === 0) {
+    contentRef.innerHTML = ""; /* clear Field */
+  }
+  else {
+    
+    calculateCostofBasket(myMainBasket);
+  
+  contentRef.innerHTML = ""; /* clear Field */
+
+    contentRef.innerHTML = getAmountBasketTotalTemplate();
+  }
+  
+}
+
+function getAmountBasketTotalTemplate() {
+  return `<div id="amountBasket" class="calulations">
+            <span class="colorGray">Zwischensumme</span>
+            <span class="colorGray">${calculateCostofBasket(myMainBasket)}</span>
+          </div>
+          <div id="deliveryCosts" class="calulations">
+            <span class="colorGray">Lieferkosten</span>
+            <span class="colorGray">${displayDeliveryCosts}</span>
+          </div>
+          <div class="calulations fontBold">
+            <span class="totalAmount">Gesamt</span>
+            <span class="totalAmount">${totalCosts(totalItemPrice, deliveryCosts)}</span>
+          </div>
+          <footer class="footerBasket">
+            <button class="basketButton" onclick="closeDialog()">
+              Warenkorb schließen
+            </button>
+          `;
+
+}
 
 
 
