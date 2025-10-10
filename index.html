@@ -11,6 +11,7 @@
     <title>BestellApp</title>
   </head>
   <body onload="init()">
+    <div class="overlay" id="overlay"></div>
     <div class="contentLimiter">
       <dialog
         id="basketDialog"
@@ -211,16 +212,10 @@
           </footer>
         </section>
       </main>
-
-      <footer class="footerFirst">
-        <img src="./assets/icons/Favicon/apple-touch-icon.png" alt="" />
+      <footer>
+        <button id="openBasketButton">Warenkorb</button>
       </footer>
-      <footer class="footerSecond">
-        <button class="basketButton" onclick="openDialog(event)">
-          Warenkorb
-        </button>
-      </footer>
-
+      
       <script src="script.js"></script>
       <script src="./scripts/db.js"></script>
       <script src="./scripts/template.js"></script>
