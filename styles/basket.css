@@ -1,1 +1,141 @@
 /* Warenkorb etc. */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 900; /* little less then basket from 1000 */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+  display: block;
+  opacity: 1;
+}
+ 
+.purchaseBasket {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: fit-content;
+  width: 250px;
+  box-shadow: -1px 0px 1px rgba(3, 7, 18, 0.02),
+    -3px 0px 4px rgba(3, 7, 18, 0.03), -7px 1px 9px rgba(3, 7, 18, 0.05),
+    -13px 2px 15px rgba(3, 7, 18, 0.06), -20px 3px 24px rgba(3, 7, 18, 0.08); /* shadow-generator: smoothshadow.com */
+
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.plusIconBasket {
+  color: var(--primary-color);
+  width: 24px;
+  height: 24px;
+  transition: color 0.3s ease;
+}
+
+.plusIconBasket:hover {
+  color: yellow;
+  background-color: rgb(194, 194, 194);
+  filter: drop-shadow(0 0 4px blue);
+  border-radius: 50%;
+}
+
+.minusIcon {
+  color: var(--primary-color);
+  width: 24px;
+  height: 24px;
+  transition: color 0.3s ease;
+}
+
+.minusIcon:hover {
+  color: yellow;
+  background-color: rgb(194, 194, 194);
+  filter: drop-shadow(0 0 4px blue);
+  border-radius: 50%;
+}
+
+.headlineBasket {
+  text-align: center;
+  padding: 8px;
+}
+
+.basketIcon {
+  color: var(--primary-color);
+  width: 24px;
+  height: 24px;
+  transition: color 0.3s ease;
+}
+
+.basketIcon:hover {
+  color: yellow;
+  background-color: rgb(194, 194, 194);
+  filter: drop-shadow(0 0 4px blue);
+  border-radius: 50%;
+}
+
+.purchaseBasketItem {
+  border-bottom: 1px solid rgb(208, 208, 208);
+  border-top: 1px solid rgb(208, 208, 208);
+}
+
+.purchaseItemHeadline {
+  text-align: start;
+  padding: 8px;
+  font-size: large;
+}
+
+.orderItemsAmount {
+  display: flex;
+  padding: 4px;
+  justify-content: space-evenly;
+}
+
+.calulations {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px;
+}
+
+@media (max-width: 712px) {
+    .basketButton {
+    height: 100px;
+    background-color: blue;
+    color: #fdfdfb;
+    width: 100%;
+    border-style: none;
+    font-size: 36px;
+  }
+
+  .purchaseBasket {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    box-shadow: -2px 0 20px rgba(0, 0, 0, 0.2);
+    transform: translateX(100%); /* standardmäßig versteckt */
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  
+  .purchaseBasket.active {
+    transform: translateX(0);
+  }
+
+    .buttonOpenBasket {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+}

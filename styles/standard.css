@@ -1,0 +1,48 @@
+:root {
+  --primary-color: rgba(240, 145, 53, 0.8);
+  --secondary-color: #fdfdfb;
+}
+
+.primary {
+  color: var(--primary-color);
+}
+
+body {
+  background-color: var(--primary-color);
+  font-family: "Comic_Relief", sans-serif;
+  margin: 0;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.contentLimiter {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.burger-menu-div {
+  height: 32px;
+  width: 32px;
+  margin: auto 40px auto auto;
+
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.burgerstripes {
+  height: 4px;
+  width: 18px;
+  border-radius: 2px;
+  background-color: white;
+}
+
+.burgerstripes:hover {
+  filter: drop-shadow(0 0 4px blue);
+}

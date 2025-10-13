@@ -1,41 +1,5 @@
-:root {
-  --primary-color: rgba(240, 145, 53, 0.8);
-  --secondary-color: #fdfdfb;
-}
 
-.primary {
-  color: var(--primary-color);
-}
 
-body {
-  background-color: var(--primary-color);
-  font-family: "Comic_Relief", sans-serif;
-  margin: 0;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-}
-
-.overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 900; /* little less Warenkorb from 1000 */
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.overlay.active {
-  display: block;
-  opacity: 1;
-}
 
 
 .logoNormal {
@@ -43,38 +7,13 @@ body {
   padding: 10px 0;
 }
 
-.contentLimiter {
-  max-width: 1200px;
-  margin: 0 auto;
-}
 
 .header-div {
   display: flex;
   justify-content: space-between;
 }
 
-.burger-menu-div {
-  height: 32px;
-  width: 32px;
-  margin: auto 40px auto auto;
 
-  aspect-ratio: 1 / 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.burgerstripes {
-  height: 4px;
-  width: 18px;
-  border-radius: 2px;
-  background-color: white;
-}
-
-.burgerstripes:hover {
-  filter: drop-shadow(0 0 4px blue);
-}
 
 .mainContainer {
   height: auto;
@@ -83,19 +22,7 @@ body {
   display: flex;
   flex-direction: row;
 }
-.purchaseBasket {
-  position: sticky;
-  top: 0;
-  align-self: flex-start;
-  height: fit-content;
-  width: 250px;
-  box-shadow: -1px 0px 1px rgba(3, 7, 18, 0.02),
-    -3px 0px 4px rgba(3, 7, 18, 0.03), -7px 1px 9px rgba(3, 7, 18, 0.05),
-    -13px 2px 15px rgba(3, 7, 18, 0.06), -20px 3px 24px rgba(3, 7, 18, 0.08); /* shadow-generator: smoothshadow.com */
 
-  transition: all 0.3s ease;
-  z-index: 5;
-}
 
 .menus {
   
@@ -222,75 +149,6 @@ a {
   border-radius: 50%;
 }
 
-.plusIconBasket {
-  color: var(--primary-color);
-  width: 24px;
-  height: 24px;
-  transition: color 0.3s ease;
-}
-
-.plusIconBasket:hover {
-  color: yellow;
-  background-color: rgb(194, 194, 194);
-  filter: drop-shadow(0 0 4px blue);
-  border-radius: 50%;
-}
-
-.minusIcon {
-  color: var(--primary-color);
-  width: 24px;
-  height: 24px;
-  transition: color 0.3s ease;
-}
-
-.minusIcon:hover {
-  color: yellow;
-  background-color: rgb(194, 194, 194);
-  filter: drop-shadow(0 0 4px blue);
-  border-radius: 50%;
-}
-
-.headlineBasket {
-  text-align: center;
-  padding: 8px;
-}
-
-.basketIcon {
-  color: var(--primary-color);
-  width: 24px;
-  height: 24px;
-  transition: color 0.3s ease;
-}
-
-.basketIcon:hover {
-  color: yellow;
-  background-color: rgb(194, 194, 194);
-  filter: drop-shadow(0 0 4px blue);
-  border-radius: 50%;
-}
-
-.purchaseBasketItem {
-  border-bottom: 1px solid rgb(208, 208, 208);
-  border-top: 1px solid rgb(208, 208, 208);
-}
-
-.purchaseItemHeadline {
-  text-align: start;
-  padding: 8px;
-  font-size: large;
-}
-
-.orderItemsAmount {
-  display: flex;
-  padding: 4px;
-  justify-content: space-evenly;
-}
-
-.calulations {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px;
-}
 
 .colorGray {
   color: grey;
@@ -310,39 +168,11 @@ flex-direction: column;
   width: 100%;
 }
 
-  .basketButton {
-    height: 100px;
-    background-color: blue;
-    color: #fdfdfb;
-    width: 100%;
-    border-style: none;
-    font-size: 36px;
-  }
-  .menuProposal {
+.menuProposal {
   
   transform: translateY(-50%);
 }
 
-
-
-.purchaseBasket {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    max-width: 400px;
-    background: white;
-    box-shadow: -2px 0 20px rgba(0, 0, 0, 0.2);
-    transform: translateX(100%); /* standardmäßig versteckt */
-    z-index: 1000;
-    overflow-y: auto;
-  }
-
-  
-  .purchaseBasket.active {
-    transform: translateX(0);
-  }
 
   footer {
     position: fixed;
@@ -354,15 +184,6 @@ flex-direction: column;
     padding: 10px;
     display: flex;
     justify-content: center;
-  }
-
-  #openBasketButton {
-    padding: 10px 20px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
   }
 
 
