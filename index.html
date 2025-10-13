@@ -14,7 +14,7 @@
     <title>BestellApp</title>
   </head>
   <body onload="init()">
-    <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay" aria-labelledby="overlayForPurchaseBasket" aria-describedby="purchaseBaket"></div>
     <div class="contentLimiter">
       <dialog
         id="basketDialog"
@@ -134,6 +134,7 @@
 
             <a href="#mainCourses" class="navMainCourses">Hauptgerichte</a>
             <a href="#sideDishes" class="sideDishes">Beilagen</a>
+            <a href="#dessertItems" class="myDesserts">Desserts</a>
           </div>
           <div id="mainCourses" class="mainCourses" tabindex="0">
             <img
@@ -145,7 +146,7 @@
             <div id="menuItems" class="menuItems">
               <div class="menuItem" tabindex="0" onclick="">
                 <div class="menuItemDescription">
-                  <div class="menuItemHeadline">myDishes[0].name</div>
+                  <div class="menuItemHeadline">Steak</div>
                   <div class="ingedientsDescription">
                     mit Krabben und Peperoni
                   </div>
@@ -200,10 +201,43 @@
                 </div>
               </div>
             </div>
+
+            <div id="dessertItems" class="menuItems" tabindex="0">
+              <img
+                src="./assets/img/Dessert.png"
+                alt="Bild für Desserts"
+                class="sideDishesPic"
+              />
+              <span><h3 class="headlineMainCourses">Desserts</h3></span>
+              <div id="dessertContainer">
+                <div class="sideDishesItem" tabindex="0" onclick="">
+                  <div class="menuItemDescription">
+                    <div class="SideDishHeadline">Pizza Krabben</div>
+                    <div class="sideDishPrice">1,99€</div>
+                  </div>
+                  <div class="orderButton" onclick="">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="transparent"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-plus-circle plusIcon"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="16"></line>
+                      <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
           </div>
         </section>
         <section class="purchaseBasket">
-          <div class="purchase-basket">
+          <div>
             <span><h3 class="headlineBasket">Warenkorb</h3></span>
             <div id="purchaseBasketTotal" class="purchaseBasketItem" tabindex="0">
               

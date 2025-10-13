@@ -158,6 +158,9 @@ a {
   font-weight: bold;
 }
 
+footer {
+  display: none;
+}
 
 @media (max-width: 712px) {
 .mainContainer{

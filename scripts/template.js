@@ -52,6 +52,61 @@ function getSideDishesTemplate(index) {
               </div>`;
 }
 
+function getDessertDishesTemplate(index) {
+  return `<div class="menuItem" tabindex="0">
+                <div class="menuItemDescription">
+                  <div class="menuItemHeadline">${myDessertDishes[index].name}</div>
+                  <div class="ingedientsDescription">
+                    ${myDessertDishes[index].description}
+                  </div>
+                  <div class="menuPrice primary">${myDessertDishes[index].price}€</div>
+                </div>
+                <div class="orderButtonDishes" role="button" onclick="addItemToBasket(this)" data-info="${index}">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="transparent"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-plus-circle plusIcon"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                  </svg>
+                </div>
+              </div>`;
+}
+
+function getSideDishesTemplate(index) {
+  return `
+                <div class="sideDishesItem" tabindex="0">
+                  <div class="menuItemDescription">
+                    <div class="SideDishHeadline">${sideDishes[index].name}</div>
+                    <div class="sideDishPrice">${sideDishes[index].price}€</div>
+                  </div>
+                  <div class="orderButton" onclick="addSideDishesItemToBasket(this);" role="button" data-info="${index}">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="transparent"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-plus-circle plusIcon"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="16"></line>
+                      <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                  </div>
+                </div>
+              </div>`;
+}
+
+
+
 function getpurchaseBasketTotalTemplate(index) {
   return ` <div id="purchaseBasketTotal" class="purchaseBasketItem" tabindex="0">
               <div class="purchaseItem">
@@ -114,7 +169,7 @@ function getpurchaseBasketTotalTemplate(index) {
 
 
 function getAmountBasketTotalTemplate() {
-  return `<div id="amountBasket" class="calulations">
+  return `<div id="amountBasket" class="calulations"  aria-label="Einkaufskorb Summen">
             <span class="colorGray">Zwischensumme</span>
             <span class="colorGray">${calculateCostofBasket(myMainBasket)}</span>
           </div>

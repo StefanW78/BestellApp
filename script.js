@@ -12,6 +12,7 @@ let displayDeliveryCosts = deliveryCosts.toFixed(2).replace('.',',') + "€";
 function init() {
   showMyDishes();
   showSideDishes();
+  showMyDesserts();
   showBasket();
 }
 
@@ -109,6 +110,8 @@ function addSideDishesItemToBasket(button) {
     }
   });
 
+  
+
   // If Item does not exists
   if (!itemExists) {
     selectedItem.basketAmount = 1;
@@ -120,6 +123,53 @@ function addSideDishesItemToBasket(button) {
   showBasket();
 }
 
+function showMyDesserts() {
+  let contentRef = document.getElementById("dessertContainer");
+  contentRef.innerHTML = ""; /* clear Field */
+
+  for (let index = 0; index < myDessertDishes.length; index++) {
+    contentRef.innerHTML += getDessertDishesTemplate(index);
+  }
+}
+
+
+
+
+function addItemToBasket(button) {
+  // 1. reading attribute
+  const index = button.getAttribute('data-info');
+
+  // 2. pick up Element from array with an copy of myDishes[index]
+  const selectedItem = { ...myDessertDishes[index] };
+
+  
+    // 3. check if is in the array
+ let itemExists = false;
+
+  myMainBasket.forEach((basketItem, basketIndex) => {
+    if (basketItem.name === selectedItem.name) {
+      // Item exists, raise quantity
+      myMainBasket[basketIndex].basketAmount += 1;
+      myMainBasket[basketIndex].price =
+        selectedItem.price * myMainBasket[basketIndex].basketAmount;
+      itemExists = true;
+    }
+  });
+
+  // Item not in, push in
+  if (!itemExists) {
+    selectedItem.basketAmount = 1;
+    myMainBasket.push(selectedItem);
+  }
+
+
+
+  // 4. give it in the basket array
+  
+  saveBasket();
+  showBasket();
+  
+}
 
 function showBasket() {
   if (myMainBasket.length != 0) {
