@@ -72,6 +72,7 @@
   display: flex;
   align-items: center;
   gap: 24px;
+  overflow: hidden;
 }
 
 .navigationArrow {
@@ -142,13 +143,6 @@ a {
   transition: color 0.3s ease;
 }
 
-.plusIcon:hover {
-  color: yellow;
-  background-color: rgb(194, 194, 194);
-  filter: drop-shadow(0 0 4px blue);
-  border-radius: 50%;
-}
-
 
 .colorGray {
   color: grey;
@@ -160,6 +154,15 @@ a {
 
 footer {
   display: none;
+}
+
+.amountBasketContainerClass {
+display: flex;
+flex-direction: column;
+}
+
+.orderButton {
+  justify-content: center;
 }
 
 @media (max-width: 712px) {
@@ -192,3 +195,10 @@ flex-direction: column;
 
 }
 
+@media (min-width: 420px) {
+  .plusIcon:hover {
+  color: yellow;
+  background-color: rgb(194, 194, 194);
+  border-radius: 50%;
+}
+}

@@ -18,50 +18,46 @@ function init() {
 
 function showMyDishes() {
   let contentRef = document.getElementById("menuItems");
-  contentRef.innerHTML = ""; /* clear Field */
+  contentRef.innerHTML = "";
 
   for (let index = 0; index < myDishes.length; index++) {
     contentRef.innerHTML += getMainDishesTemplate(index);
   }
 }
 
+function showBasketButton() {
+  let contentRef = document.getElementById("orderFooter");
+  contentRef.innerHTML = "";
+  contentRef.innerHTML = getButtonDeclaration();
+}
+
 
 
 
 function addItemToBasket(button) {
-  // 1. reading attribute
   const index = button.getAttribute('data-info');
-
-  // 2. pick up Element from array with an copy of myDishes[index]
   const selectedItem = { ...myDishes[index] };
-
+  myDischesitemExistsInBasket(selectedItem);
+  saveBasket();
+  showBasket();
+  showBasketButton();
   
-    // 3. check if is in the array
- let itemExists = false;
+}
 
+function myDischesitemExistsInBasket(selectedItem) {
+ let itemExists = false;
   myMainBasket.forEach((basketItem, basketIndex) => {
     if (basketItem.name === selectedItem.name) {
-      // Item exists, raise quantity
       myMainBasket[basketIndex].basketAmount += 1;
       myMainBasket[basketIndex].price =
         selectedItem.price * myMainBasket[basketIndex].basketAmount;
       itemExists = true;
     }
   });
-
-  // Item not in, push in
   if (!itemExists) {
     selectedItem.basketAmount = 1;
     myMainBasket.push(selectedItem);
   }
-
-
-
-  // 4. give it in the basket array
-  
-  saveBasket();
-  showBasket();
-  
 }
 
 function loadBasket() {
@@ -79,7 +75,7 @@ function saveBasket() {
 
 function showSideDishes() {
   let contentRef = document.getElementById("sideDishesContainer");
-  contentRef.innerHTML = ""; /* clear Field */
+  contentRef.innerHTML = "";
 
   for (let index = 0; index < sideDishes.length; index++) {
     contentRef.innerHTML += getSideDishesTemplate(index);
@@ -88,39 +84,28 @@ function showSideDishes() {
 
 
 function addSideDishesItemToBasket(button) {
-  // 1. reading attribute
   const index = button.getAttribute('data-info');
-
-  // 2. pick up Element from array
   const selectedItem = { ...sideDishes[index] };
+  sideDishesItemExistsInBasket(selectedItem);
+  saveBasket();
+  showBasket();
+  showBasketButton();
+}
 
-
-  // 3. check if is in the array
-  let itemExists = false;
-
+function sideDishesItemExistsInBasket(selectedItem) {
+    let itemExists = false;
   myMainBasket.forEach((basketItem, basketIndex) => {
     if (basketItem.name === selectedItem.name) {
-      // Item exists, raise Quantity
       myMainBasket[basketIndex].basketAmount += 1;
-      let priceItem =
-        selectedItem.price * myMainBasket[basketIndex].basketAmount;
+      let priceItem = selectedItem.price * myMainBasket[basketIndex].basketAmount;
       itemExists = true;
-    price = priceItem;
-      
+    price = priceItem; 
     }
   });
-
-  
-
-  // If Item does not exists
   if (!itemExists) {
     selectedItem.basketAmount = 1;
     myMainBasket.push(selectedItem);
   }
-
-  // 4. give it in the basket array
-  saveBasket();
-  showBasket();
 }
 
 function showMyDesserts() {
@@ -135,40 +120,28 @@ function showMyDesserts() {
 
 
 
-function addItemToBasket(button) {
-  // 1. reading attribute
+function addDessertItemToBasket(button) {
   const index = button.getAttribute('data-info');
-
-  // 2. pick up Element from array with an copy of myDishes[index]
   const selectedItem = { ...myDessertDishes[index] };
+  myDessertItemExistsInBasket(selectedItem);
+  saveBasket();
+  showBasket();
+  showBasketButton();
+}
 
-  
-    // 3. check if is in the array
- let itemExists = false;
-
+function myDessertItemExistsInBasket(selectedItem) {
+   let itemExists = false;
   myMainBasket.forEach((basketItem, basketIndex) => {
     if (basketItem.name === selectedItem.name) {
-      // Item exists, raise quantity
       myMainBasket[basketIndex].basketAmount += 1;
-      myMainBasket[basketIndex].price =
-        selectedItem.price * myMainBasket[basketIndex].basketAmount;
+      myMainBasket[basketIndex].price = selectedItem.price * myMainBasket[basketIndex].basketAmount;
       itemExists = true;
     }
   });
-
-  // Item not in, push in
   if (!itemExists) {
     selectedItem.basketAmount = 1;
     myMainBasket.push(selectedItem);
   }
-
-
-
-  // 4. give it in the basket array
-  
-  saveBasket();
-  showBasket();
-  
 }
 
 function showBasket() {
@@ -214,8 +187,6 @@ function reduceBasket(button) {
   else {
     removeItem(button);
   }
-
-  
 }
 
 // loading localStorage 
@@ -255,40 +226,41 @@ function totalCosts(totalItemPrice, deliveryCosts) {
 
 function showTotalSums() {
   let contentRef = document.getElementById("amountBasketContainer");
-  if (myMainBasket.length === 0) {
-    contentRef.innerHTML = ""; /* clear Field */
+    calculateCostofBasket(myMainBasket);
+    contentRef.innerHTML = getAmountBasketTotalTemplate();
+}
+
+function sendOrder() {
+  if(myMainBasket.length === 0) {
+    alert("Bitte wählen Sie Ihre Bestellung aus!");
   }
   else {
-    
-    calculateCostofBasket(myMainBasket);
-  
-  contentRef.innerHTML = ""; /* clear Field */
-
-    contentRef.innerHTML = getAmountBasketTotalTemplate();
+    alert("Ihre Bestellung wird in kürze zugestellt.");
   }
   
 }
 
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  const openButton = document.getElementById("openBasketButton");
+function toggleBasket() {
   const basket = document.querySelector(".purchaseBasket");
   const overlay = document.getElementById("overlay");
 
-  // basket open/close with button
-  openButton.addEventListener("click", () => {
-    basket.classList.toggle("active");
-    overlay.classList.toggle("active");
-    
-    //no background scoll
-    document.body.style.overflow = basket.classList.contains("active")
-      ? "hidden"
-      : "auto";
-  });
+  basket.classList.toggle("active");
+  overlay.classList.toggle("active");
+  showTotalSums();
 
-  // close Overlay
+  document.body.style.overflow = basket.classList.contains("active")
+    ? "hidden"
+    : "auto";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("overlay");
+
   overlay.addEventListener("click", () => {
+    const basket = document.querySelector(".purchaseBasket");
+    const overlay = document.getElementById("overlay");
+
     basket.classList.remove("active");
     overlay.classList.remove("active");
     document.body.style.overflow = "auto";

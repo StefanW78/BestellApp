@@ -61,7 +61,7 @@ function getDessertDishesTemplate(index) {
                   </div>
                   <div class="menuPrice primary">${myDessertDishes[index].price}€</div>
                 </div>
-                <div class="orderButtonDishes" role="button" onclick="addItemToBasket(this)" data-info="${index}">
+                <div class="orderButtonDishes" role="button" onclick="addDessertItemToBasket(this)" data-info="${index}">
                   <svg
                     viewBox="0 0 24 24"
                     fill="transparent"
@@ -78,33 +78,6 @@ function getDessertDishesTemplate(index) {
                 </div>
               </div>`;
 }
-
-function getSideDishesTemplate(index) {
-  return `
-                <div class="sideDishesItem" tabindex="0">
-                  <div class="menuItemDescription">
-                    <div class="SideDishHeadline">${sideDishes[index].name}</div>
-                    <div class="sideDishPrice">${sideDishes[index].price}€</div>
-                  </div>
-                  <div class="orderButton" onclick="addSideDishesItemToBasket(this);" role="button" data-info="${index}">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="transparent"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-plus-circle plusIcon"
-                    >
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="12" y1="8" x2="12" y2="16"></line>
-                      <line x1="8" y1="12" x2="16" y2="12"></line>
-                    </svg>
-                  </div>
-                </div>
-              </div>`;
-}
-
 
 
 function getpurchaseBasketTotalTemplate(index) {
@@ -181,6 +154,13 @@ function getAmountBasketTotalTemplate() {
             <span class="totalAmount">Gesamt</span>
             <span class="totalAmount">${totalCosts(totalItemPrice, deliveryCosts)}</span>
           </div>
+          
+        <button id="orderButton" class="orderButton" onclick="sendOrder()">Bestellen</button>
+      
           `;
 
+}
+
+function getButtonDeclaration() {
+  return `<button id="openBasketButton" class="buttonOpenBasket" onclick="toggleBasket()">Warenkorb(${myMainBasket.length})</button>`;
 }
