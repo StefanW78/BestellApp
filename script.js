@@ -1,13 +1,10 @@
 let myMainBasket = [];
 let dishesContainer = document.getElementsByClassName("orderButtonDishes");
 let count = 0;
-let totalItemPrice = 0.00;
-let totalItemPriceEU = 0.00;
-let deliveryCosts = 5.00;
-let displayDeliveryCosts = deliveryCosts.toFixed(2).replace('.',',') + "€";
-
-
-
+let totalItemPrice = 0.0;
+let totalItemPriceEU = 0.0;
+let deliveryCosts = 5.0;
+let displayDeliveryCosts = deliveryCosts.toFixed(2).replace(".", ",") + "€";
 
 function init() {
   showMyDishes();
@@ -31,21 +28,14 @@ function showBasketButton() {
   contentRef.innerHTML = getButtonDeclaration();
 }
 
-
-
-
 function addItemToBasket(button) {
-  const index = button.getAttribute('data-info');
+  const index = button.getAttribute("data-info");
   const selectedItem = { ...myDishes[index] };
-  myDischesitemExistsInBasket(selectedItem);
-  saveBasket();
-  showBasket();
-  showBasketButton();
-  
+  completeFunction(selectedItem);
 }
 
 function myDischesitemExistsInBasket(selectedItem) {
- let itemExists = false;
+  let itemExists = false;
   myMainBasket.forEach((basketItem, basketIndex) => {
     if (basketItem.name === selectedItem.name) {
       myMainBasket[basketIndex].basketAmount += 1;
@@ -60,8 +50,15 @@ function myDischesitemExistsInBasket(selectedItem) {
   }
 }
 
+function completeFunction(selectedItem) {
+  myDischesitemExistsInBasket(selectedItem);
+  saveBasket();
+  showBasket();
+  showBasketButton();
+}
+
 function loadBasket() {
-  const saved = localStorage.getItem('myMainBasket');
+  const saved = localStorage.getItem("myMainBasket");
   if (saved) {
     myMainBasket = JSON.parse(saved);
     showBasket();
@@ -69,9 +66,8 @@ function loadBasket() {
 }
 
 function saveBasket() {
-  localStorage.setItem('myMainBasket', JSON.stringify(myMainBasket));
+  localStorage.setItem("myMainBasket", JSON.stringify(myMainBasket));
 }
-
 
 function showSideDishes() {
   let contentRef = document.getElementById("sideDishesContainer");
@@ -82,116 +78,70 @@ function showSideDishes() {
   }
 }
 
-
 function addSideDishesItemToBasket(button) {
-  const index = button.getAttribute('data-info');
+  const index = button.getAttribute("data-info");
   const selectedItem = { ...sideDishes[index] };
-  sideDishesItemExistsInBasket(selectedItem);
-  saveBasket();
-  showBasket();
-  showBasketButton();
-}
-
-function sideDishesItemExistsInBasket(selectedItem) {
-    let itemExists = false;
-  myMainBasket.forEach((basketItem, basketIndex) => {
-    if (basketItem.name === selectedItem.name) {
-      myMainBasket[basketIndex].basketAmount += 1;
-      let priceItem = selectedItem.price * myMainBasket[basketIndex].basketAmount;
-      itemExists = true;
-    price = priceItem; 
-    }
-  });
-  if (!itemExists) {
-    selectedItem.basketAmount = 1;
-    myMainBasket.push(selectedItem);
-  }
+  completeFunction(selectedItem);
 }
 
 function showMyDesserts() {
   let contentRef = document.getElementById("dessertContainer");
-  contentRef.innerHTML = ""; /* clear Field */
+  contentRef.innerHTML = "";
 
   for (let index = 0; index < myDessertDishes.length; index++) {
     contentRef.innerHTML += getDessertDishesTemplate(index);
   }
 }
 
-
-
-
 function addDessertItemToBasket(button) {
-  const index = button.getAttribute('data-info');
+  const index = button.getAttribute("data-info");
   const selectedItem = { ...myDessertDishes[index] };
-  myDessertItemExistsInBasket(selectedItem);
-  saveBasket();
-  showBasket();
-  showBasketButton();
-}
-
-function myDessertItemExistsInBasket(selectedItem) {
-   let itemExists = false;
-  myMainBasket.forEach((basketItem, basketIndex) => {
-    if (basketItem.name === selectedItem.name) {
-      myMainBasket[basketIndex].basketAmount += 1;
-      myMainBasket[basketIndex].price = selectedItem.price * myMainBasket[basketIndex].basketAmount;
-      itemExists = true;
-    }
-  });
-  if (!itemExists) {
-    selectedItem.basketAmount = 1;
-    myMainBasket.push(selectedItem);
-  }
+  completeFunction(selectedItem);
 }
 
 function showBasket() {
   if (myMainBasket.length != 0) {
     showTotalSums(myMainBasket);
-    
   }
-  
-  let contentRef = document.getElementById("purchaseBasketTotal");
-  contentRef.innerHTML = ""; /* clear Field */
 
+  let contentRef = document.getElementById("purchaseBasketTotal");
+  contentRef.innerHTML = "";
 
   for (let index = 0; index < myMainBasket.length; index++) {
     totalItemPrice = Number(myMainBasket[index].price);
     totalItemPrice = totalItemPrice.toFixed(2);
-    totalItemPriceEU = totalItemPrice.replace('.', ',');
+    totalItemPriceEU = totalItemPrice.replace(".", ",");
     contentRef.innerHTML += getpurchaseBasketTotalTemplate(index);
   }
 }
 
-
 function raiseBasket(button) {
-  const index = button.getAttribute('data-info');
-  const singlePrice = myMainBasket[index].price / myMainBasket[index].basketAmount;
+  const index = button.getAttribute("data-info");
+  const singlePrice =
+    myMainBasket[index].price / myMainBasket[index].basketAmount;
   myMainBasket[index].basketAmount += 1;
   myMainBasket[index].price = singlePrice * myMainBasket[index].basketAmount;
-  //  show it
   saveBasket();
   showBasket();
 }
 
 function reduceBasket(button) {
-  const index = button.getAttribute('data-info');
-  const singlePrice = myMainBasket[index].price / myMainBasket[index].basketAmount;
+  const index = button.getAttribute("data-info");
+  const singlePrice =
+    myMainBasket[index].price / myMainBasket[index].basketAmount;
   myMainBasket[index].basketAmount -= 1;
-  if (myMainBasket[index].basketAmount != 0){
+  if (myMainBasket[index].basketAmount != 0) {
     myMainBasket[index].price = singlePrice * myMainBasket[index].basketAmount;
-  //  show it
-  saveBasket();
-  showBasket();
-  showTotalSums();
-  }
-  else {
+    saveBasket();
+    showBasket();
+    showTotalSums();
+  } else {
     removeItem(button);
   }
 }
 
-// loading localStorage 
 function loadBasket() {
-  const saved = localStorage.getItem('myMainBasket');
+  const saved = localStorage.getItem("myMainBasket");
   if (saved) {
     basket = JSON.parse(saved);
     showBasket();
@@ -199,47 +149,59 @@ function loadBasket() {
 }
 
 function removeItem(button) {
-  const index = button.getAttribute('data-info');
+  const index = button.getAttribute("data-info");
   myMainBasket.splice(index, 1);
-  saveBasket();  
+  saveBasket();
   showBasket();
   showTotalSums();
-
 }
 
 function calculateCostofBasket(myMainBasket) {
-   totalItemPrice = 0;
-  myMainBasket.forEach(function (object){
+  totalItemPrice = 0;
+  myMainBasket.forEach(function (object) {
     totalItemPrice += Number(object.price);
-  })
-  
-let displayTotalItemPrice = totalItemPrice.toFixed(2).replace('.', ',') + '€';
+  });
+
+  let displayTotalItemPrice = totalItemPrice.toFixed(2).replace(".", ",") + "€";
   return displayTotalItemPrice;
-  
 }
 
 function totalCosts(totalItemPrice, deliveryCosts) {
   const totalCostsNumber = totalItemPrice + deliveryCosts;
-  let displayTotalCostNumber = totalCostsNumber.toFixed(2).replace('.', ',') + '€';
+  let displayTotalCostNumber =
+    totalCostsNumber.toFixed(2).replace(".", ",") + "€";
   return displayTotalCostNumber;
 }
 
 function showTotalSums() {
   let contentRef = document.getElementById("amountBasketContainer");
-    calculateCostofBasket(myMainBasket);
-    contentRef.innerHTML = getAmountBasketTotalTemplate();
+  calculateCostofBasket(myMainBasket);
+  contentRef.innerHTML = getAmountBasketTotalTemplate();
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000); 
 }
 
 function sendOrder() {
-  if(myMainBasket.length === 0) {
-    alert("Bitte wählen Sie Ihre Bestellung aus!");
+  if (myMainBasket.length === 0) {
+    showToast("Der Warenkorb ist leer!");
+    return;
+  } else {
+    showToast("Bestellung erfolgreich! Dein Essen ist unterwegs!")
+    myMainBasket = [];
+    saveBasket();
+    showBasket();
+    showTotalSums();
+    showBasketButton();
   }
-  else {
-    alert("Ihre Bestellung wird in kürze zugestellt.");
-  }
-  
 }
-
 
 function toggleBasket() {
   const basket = document.querySelector(".purchaseBasket");

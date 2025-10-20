@@ -1,7 +1,3 @@
-
-
-
-
 .logoNormal {
   height: 80px;
   padding: 10px 0;
@@ -82,10 +78,6 @@
   transition: color 0.3s ease;
 }
 
-.navigationArrow:hover {
-  color: var(--secondary-color);
-}
-
 .mainCoursesPic {
   height: 150px;
   width: 100%;
@@ -152,22 +144,45 @@ a {
   font-weight: bold;
 }
 
-footer {
+/* Toast-Stil */
+.toast {
+  visibility: hidden;
+  min-width: 280px;
+  margin-left: -140px;
+  background-color: #323232;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 12px;
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.4s ease, bottom 0.4s ease;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 50px;
+}
+
+
+@media (min-width: 712px){
+  footer.mainFooter {
   display: none;
 }
-
-.amountBasketContainerClass {
-display: flex;
-flex-direction: column;
 }
 
-.orderButton {
-  justify-content: center;
-}
 
 @media (max-width: 712px) {
 .mainContainer{
 flex-direction: column;
+}
+
+.purchaseAgain {
+  display: none;
 }
 
 .menus {
@@ -195,10 +210,21 @@ flex-direction: column;
 
 }
 
-@media (min-width: 420px) {
+@media (min-width: 500px) {
   .plusIcon:hover {
   color: yellow;
   background-color: rgb(194, 194, 194);
   border-radius: 50%;
+  cursor: pointer;
+  }
+  
 }
+
+
+@media (max-width: 400px) {
+  .navigationPoints {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
 }
