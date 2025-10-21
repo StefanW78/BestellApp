@@ -8,7 +8,7 @@ function getMainDishesTemplate(index) {
                   </div>
                   <div class="menuPrice primary">${myDishes[index].price}€</div>
                 </div>
-                <div class="orderButtonDishes" role="button" onclick="addItemToBasket(this)" data-info="${index}">
+                <div class="orderButtonDishes" role="button" onclick="addItemToBasketGeneric(this, 'main')" data-info="${index}">
                   <svg
                     viewBox="0 0 24 24"
                     fill="transparent"
@@ -33,7 +33,7 @@ function getSideDishesTemplate(index) {
                     <div class="SideDishHeadline">${sideDishes[index].name}</div>
                     <div class="sideDishPrice">${sideDishes[index].price}€</div>
                   </div>
-                  <div class="orderButtonDishes" onclick="addSideDishesItemToBasket(this);" role="button" data-info="${index}">
+                  <div class="orderButtonDishes" role="button" onclick="addItemToBasketGeneric(this, 'side')" data-info="${index}">
                     <svg
                       viewBox="0 0 24 24"
                       fill="transparent"
@@ -61,7 +61,7 @@ function getDessertDishesTemplate(index) {
                   </div>
                   <div class="menuPrice primary">${myDessertDishes[index].price}€</div>
                 </div>
-                <div class="orderButtonDishes" role="button" onclick="addDessertItemToBasket(this)" data-info="${index}">
+                <div class="orderButtonDishes" role="button" onclick="addItemToBasketGeneric(this, 'dessert')" data-info="${index}">
                   <svg
                     viewBox="0 0 24 24"
                     fill="transparent"

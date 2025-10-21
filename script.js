@@ -7,18 +7,61 @@ let deliveryCosts = 5.0;
 let displayDeliveryCosts = deliveryCosts.toFixed(2).replace(".", ",") + "€";
 
 function init() {
-  showMyDishes();
-  showSideDishes();
-  showMyDesserts();
+  showCategory("main");
+  showCategory("side");
+  showCategory("dessert");
   showBasket();
 }
 
-function showMyDishes() {
-  let contentRef = document.getElementById("menuItems");
-  contentRef.innerHTML = "";
+function showCategory(category) {
+  const cat = getCategoryConfig(category);
+  if (!cat) return;
 
-  for (let index = 0; index < myDishes.length; index++) {
-    contentRef.innerHTML += getMainDishesTemplate(index);
+  const contentRef = getCategoryContainer(cat.container);
+  renderCategoryItems(cat, contentRef);
+}
+
+function getCategoryConfig(category) {
+  const categoryMap = {
+    main: {
+      data: myDishes,
+      container: "menuItems",
+      template: getMainDishesTemplate,
+    },
+    side: {
+      data: sideDishes,
+      container: "sideDishesContainer",
+      template: getSideDishesTemplate,
+    },
+    dessert: {
+      data: myDessertDishes,
+      container: "dessertContainer",
+      template: getDessertDishesTemplate,
+    },
+  };
+
+  const cat = categoryMap[category];
+  if (!cat) {
+    console.error("Unbekannte Kategorie:", category);
+    return null;
+  }
+  return cat;
+}
+
+function getCategoryContainer(containerId) {
+  const element = document.getElementById(containerId);
+  if (!element) {
+    console.error("Container nicht gefunden:", containerId);
+    return null;
+  }
+  element.innerHTML = "";
+  return element;
+}
+
+function renderCategoryItems(cat, container) {
+  if (!container) return;
+  for (let i = 0; i < cat.data.length; i++) {
+    container.innerHTML += cat.template(i);
   }
 }
 
@@ -26,12 +69,6 @@ function showBasketButton() {
   let contentRef = document.getElementById("orderFooter");
   contentRef.innerHTML = "";
   contentRef.innerHTML = getButtonDeclaration();
-}
-
-function addItemToBasket(button) {
-  const index = button.getAttribute("data-info");
-  const selectedItem = { ...myDishes[index] };
-  completeFunction(selectedItem);
 }
 
 function myDischesitemExistsInBasket(selectedItem) {
@@ -69,33 +106,14 @@ function saveBasket() {
   localStorage.setItem("myMainBasket", JSON.stringify(myMainBasket));
 }
 
-function showSideDishes() {
-  let contentRef = document.getElementById("sideDishesContainer");
-  contentRef.innerHTML = "";
-
-  for (let index = 0; index < sideDishes.length; index++) {
-    contentRef.innerHTML += getSideDishesTemplate(index);
-  }
-}
-
-function addSideDishesItemToBasket(button) {
+function addItemToBasketGeneric(button, category) {
   const index = button.getAttribute("data-info");
-  const selectedItem = { ...sideDishes[index] };
-  completeFunction(selectedItem);
-}
-
-function showMyDesserts() {
-  let contentRef = document.getElementById("dessertContainer");
-  contentRef.innerHTML = "";
-
-  for (let index = 0; index < myDessertDishes.length; index++) {
-    contentRef.innerHTML += getDessertDishesTemplate(index);
-  }
-}
-
-function addDessertItemToBasket(button) {
-  const index = button.getAttribute("data-info");
-  const selectedItem = { ...myDessertDishes[index] };
+  let sourceArray;
+  if (category === "main") sourceArray = myDishes;
+  else if (category === "side") sourceArray = sideDishes;
+  else if (category === "dessert") sourceArray = myDessertDishes;
+  else return;
+  const selectedItem = { ...sourceArray[index] };
   completeFunction(selectedItem);
 }
 
@@ -186,7 +204,7 @@ function showToast(message) {
 
   setTimeout(() => {
     toast.classList.remove("show");
-  }, 3000); 
+  }, 3000);
 }
 
 function sendOrder() {
@@ -194,7 +212,7 @@ function sendOrder() {
     showToast("Der Warenkorb ist leer!");
     return;
   } else {
-    showToast("Bestellung erfolgreich! Dein Essen ist unterwegs!")
+    showToast("Bestellung erfolgreich! Dein Essen ist unterwegs!");
     myMainBasket = [];
     saveBasket();
     showBasket();
