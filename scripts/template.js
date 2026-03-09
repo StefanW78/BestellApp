@@ -185,5 +185,3 @@ function getAmountBasketTotalTemplate() {
 function getButtonDeclaration() {
   return `<button class="buttonOpenBasket" onclick="toggleBasket()">Warenkorb(${myMainBasket.length})</button>`;
 }
-
-/* id="openBasketButton" */

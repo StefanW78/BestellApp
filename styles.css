@@ -1,6 +1,6 @@
 .logoNormal {
   height: 80px;
-  padding: 10px 0;
+  padding: 10px 0 10px 12px;
 }
 
 
@@ -21,7 +21,6 @@
 
 
 .menus {
-  
   flex-grow: 1;
   background-color: rgb(253, 253, 251);
   display: flex;

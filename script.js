@@ -184,6 +184,16 @@ function calculateCostofBasket(myMainBasket) {
   return displayTotalItemPrice;
 }
 
+function calculateTotalItemsofBasket(myMainBasket) {
+  let totalItemsinBasket = 0;
+  myMainBasket.forEach(function (object) {
+    totalItemsinBasket += Number(object.basketAmount);
+  });
+
+  let displayTotalItemPrice = totalItemPrice.toFixed(2).replace(".", ",") + "€";
+  return displayTotalItemPrice;
+}
+
 function totalCosts(totalItemPrice, deliveryCosts) {
   const totalCostsNumber = totalItemPrice + deliveryCosts;
   let displayTotalCostNumber =
